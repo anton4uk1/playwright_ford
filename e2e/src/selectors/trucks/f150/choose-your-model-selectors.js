@@ -1,0 +1,1 @@
+export const F150_KING_RANCH = 'div.complex-card-wrapper:has(img[alt="2024 Ford F-150 F-150 King Ranch®"]) >> ford-button.btn-enter';

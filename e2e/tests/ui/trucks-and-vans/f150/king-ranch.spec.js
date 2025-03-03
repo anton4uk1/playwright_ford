@@ -1,0 +1,53 @@
+import { test, expect } from "@playwright/test";
+import { selectModel } from "../../../../src/helpers/ui/vehicles/f150-helpers";
+import { EXPECTED_F150_KING_RANCH_VALUES } from "../../../../src/config/f150-options-config";
+import { setVehicleOptions } from "../../../../src/helpers/ui/vehicles/f150-helpers";
+import {
+  STAR_WHITE_COLOR_OPTION, HYBRID_ENGINE_POWERTRAIN_OPTION,
+  ELAR_MAX_TOW_REAR_AXLE_RATIO_OPTION, BLUE_CRUISE_THREE_YR_PACKAGE_OPTION,
+  INDIVIDUAL_TPMS_EXTERIOR_OPTION, PAINT_PROTECTION_EXTERIOR_OPTION,
+  TRAILER_TOW_EXTERIOR_MIRRORS_OPTION, ESTIMATED_NET_PRICE, STAR_WHITE_METALLIC_COLOR_DESCRIPTION,
+  STAR_WHITE_METALLIC_COLOR_PRICE, HYBRID_V6_ENGINE_DESCRIPTION, HYBRID_V6_ENGINE_PRICE,
+  AXLE_RATIO_DESCRIPTION, AXLE_RATIO_PRICE, BLUECRUISE_DESCRIPTION, BLUECRUISE_PRICE,
+  TRAILER_TIRE_TPMS_DESCRIPTION, TRAILER_TIRE_TPMS_PRICE, PAINT_PROTECTION_FILM_DESCRIPTION,
+  PAINT_PROTECTION_FILM_PRICE, TRAILER_TOW_DESCRIPTION, TRAILER_TOW_PRICE
+} from "../../../../src/selectors/trucks/f150/configure-your-build-selectors";
+import { startVehicleBuild } from "../../../../src/helpers/util/page-actions";
+
+test.beforeEach(async ({ page }) => {
+  await page.goto('/trucks/f150/2024/?gnav=header-trucks-vhp');
+});
+
+test('Build a custom F150 King Ranch', async ({ page }) => {
+  await startVehicleBuild(page);
+  await selectModel(page);
+
+  const vehicleOptions = [
+    { selector: STAR_WHITE_COLOR_OPTION },
+    { selector: HYBRID_ENGINE_POWERTRAIN_OPTION },
+    { selector: ELAR_MAX_TOW_REAR_AXLE_RATIO_OPTION },
+    { selector: BLUE_CRUISE_THREE_YR_PACKAGE_OPTION },
+    { selector: INDIVIDUAL_TPMS_EXTERIOR_OPTION },
+    { selector: PAINT_PROTECTION_EXTERIOR_OPTION },
+    { selector: TRAILER_TOW_EXTERIOR_MIRRORS_OPTION }
+  ];
+
+  await setVehicleOptions(page, vehicleOptions);
+
+  await expect(page.locator(STAR_WHITE_METALLIC_COLOR_DESCRIPTION)).toBeVisible();
+  await expect(page.locator(STAR_WHITE_METALLIC_COLOR_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.STAR_WHITE_METALLIC_COLOR_DESCRIPTION);
+  await expect(page.locator(STAR_WHITE_METALLIC_COLOR_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.STAR_WHITE_METALLIC_COLOR_PRICE);
+  await expect(page.locator(HYBRID_V6_ENGINE_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.HYBRID_V6_ENGINE_DESCRIPTION);
+  await expect(page.locator(HYBRID_V6_ENGINE_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.HYBRID_V6_ENGINE_PRICE);
+  await expect(page.locator(AXLE_RATIO_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.AXLE_RATIO_DESCRIPTION);
+  await expect(page.locator(AXLE_RATIO_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.AXLE_RATIO_PRICE);
+  await expect(page.locator(BLUECRUISE_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.BLUECRUISE_DESCRIPTION);
+  await expect(page.locator(BLUECRUISE_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.BLUECRUISE_PRICE);
+  await expect(page.locator(TRAILER_TIRE_TPMS_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.TRAILER_TIRE_TPMS_DESCRIPTION);
+  await expect(page.locator(TRAILER_TIRE_TPMS_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.TRAILER_TIRE_TPMS_PRICE);
+  await expect(page.locator(PAINT_PROTECTION_FILM_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.PAINT_PROTECTION_FILM_DESCRIPTION);
+  await expect(page.locator(PAINT_PROTECTION_FILM_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.PAINT_PROTECTION_FILM_PRICE);
+  await expect(page.locator(TRAILER_TOW_DESCRIPTION)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.TRAILER_TOW_DESCRIPTION);
+  await expect(page.locator(TRAILER_TOW_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.TRAILER_TOW_PRICE);
+  await expect(page.locator(ESTIMATED_NET_PRICE)).toHaveText(EXPECTED_F150_KING_RANCH_VALUES.ESTIMATED_NET_PRICE);
+});
