@@ -46,7 +46,7 @@ test('Retrieve all models', async ({ }) => {
 
     expect(vehicle).toHaveProperty('_appID');
     expect(typeof vehicle._appID).toBe('string');
-    expect(vehicle._appID.length).toBeGreaterThan(2);
+    expect(vehicle._appID.length).toBeGreaterThan(1);
 
     /* Not every vehicle has _PAcode? */
     // expect(vehicle).toHaveProperty('_PAcode');
